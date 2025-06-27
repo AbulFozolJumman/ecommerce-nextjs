@@ -3,8 +3,11 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { connectDB } from "./mongoose";
 import User from "@/models/user.model";
 import bcrypt from "bcryptjs";
+import type { AuthOptions, SessionStrategy } from "next-auth";
 
-export const authOptions = {
+const sessionStrategy: SessionStrategy = "jwt";
+
+export const authOptions: AuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -35,15 +38,19 @@ export const authOptions = {
     signIn: "/auth/login",
   },
   session: {
-    strategy: "jwt",
+    strategy: sessionStrategy,
   },
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.role = user.role;
+      if (user && "role" in user) {
+        token.role = user.role;
+      }
       return token;
     },
     async session({ session, token }) {
-      if (token && session.user) session.user.role = token.role;
+      if (token && session.user) {
+        session.user.role = token.role;
+      }
       return session;
     },
   },
