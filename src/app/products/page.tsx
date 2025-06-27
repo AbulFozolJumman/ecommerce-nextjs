@@ -1,4 +1,4 @@
-import ProductCard from "../components/ProductCard";
+import ProductCard from "@/components/ProductCard";
 import { dummyProducts } from "@/lib/dummyProducts";
 
 export default function ProductsPage() {

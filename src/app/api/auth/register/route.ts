@@ -1,26 +1,42 @@
+import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongoose";
 import User from "@/models/user.model";
 import bcrypt from "bcryptjs";
-import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { name, email, password } = await req.json();
     await connectDB();
+    const body = await req.json();
+    const { name, email, password, image, role } = body;
 
-    const exists = await User.findOne({ email });
-    if (exists)
+    if (!email || !password || !name) {
       return NextResponse.json(
-        { message: "User already exists" },
+        { message: "Missing required fields" },
         { status: 400 }
       );
+    }
 
-    const hashed = await bcrypt.hash(password, 10);
-    await User.create({ name, email, password: hashed });
+    const existing = await User.findOne({ email });
+    if (existing) {
+      return NextResponse.json(
+        { message: "Email already exists" },
+        { status: 409 }
+      );
+    }
 
-    return NextResponse.json({ message: "Registered" }, { status: 201 });
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (err) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      image: image || "",
+      role: role || "user",
+    });
+
+    return NextResponse.json(user, { status: 201 });
+  } catch (error) {
+    console.error("Register error:", error);
     return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }

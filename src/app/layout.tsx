@@ -3,9 +3,9 @@ import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import SessionProvider from "./components/SessionProvider";
-import Navbar from "./components/Navbar";
 import ReduxProvider from "@/app/providers";
+import SessionProvider from "@/components/SessionProvider";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 

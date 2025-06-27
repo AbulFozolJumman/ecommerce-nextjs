@@ -18,6 +18,11 @@ export default function Navbar() {
             <button onClick={() => signOut()} className="btn">
               Logout
             </button>
+            {session?.user?.role === "admin" && (
+              <Link href="/admin/dashboard" className="btn">
+                Dashboard
+              </Link>
+            )}
           </>
         ) : (
           <>
