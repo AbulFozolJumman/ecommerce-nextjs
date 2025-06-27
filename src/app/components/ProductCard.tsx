@@ -1,6 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/redux/slices/cartSlice";
+import { toast } from "react-hot-toast";
 
 type Product = {
   id: string;
@@ -10,6 +13,13 @@ type Product = {
 };
 
 export default function ProductCard({ product }: { product: Product }) {
+  const dispatch = useDispatch();
+
+  const handleAdd = () => {
+    dispatch(addToCart(product));
+    toast.success("Added to cart");
+  };
+
   return (
     <div className="border rounded-lg overflow-hidden shadow hover:shadow-lg transition">
       <div className="relative h-52 w-full">
@@ -25,7 +35,10 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className="p-4">
         <h2 className="text-lg font-semibold">{product.title}</h2>
         <p className="text-gray-700 mt-1">${product.price.toFixed(2)}</p>
-        <button className="mt-4 w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition">
+        <button
+          onClick={handleAdd}
+          className="mt-4 w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition"
+        >
           Add to Cart
         </button>
       </div>
