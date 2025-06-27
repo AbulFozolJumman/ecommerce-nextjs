@@ -1,0 +1,34 @@
+"use client";
+
+import Image from "next/image";
+
+type Product = {
+  id: string;
+  title: string;
+  price: number;
+  image: string;
+};
+
+export default function ProductCard({ product }: { product: Product }) {
+  return (
+    <div className="border rounded-lg overflow-hidden shadow hover:shadow-lg transition">
+      <div className="relative h-52 w-full">
+        <Image
+          src={product.image}
+          alt={product.title}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 25vw, 20vw"
+          priority
+        />
+      </div>
+      <div className="p-4">
+        <h2 className="text-lg font-semibold">{product.title}</h2>
+        <p className="text-gray-700 mt-1">${product.price.toFixed(2)}</p>
+        <button className="mt-4 w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  );
+}
