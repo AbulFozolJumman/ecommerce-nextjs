@@ -1,17 +1,16 @@
 import { NextResponse } from "next/server";
-import Product from "@/models/product.model";
 import { connectDB } from "@/lib/mongoose";
+import Product from "@/models/product.model";
 
-export async function POST(req: Request) {
+export async function GET() {
   try {
     await connectDB();
-    const data = await req.json();
-    const product = await Product.create(data);
-    return NextResponse.json(product, { status: 201 });
-  } catch (error) {
-    console.error(error);
+    const products = await Product.find().sort({ createdAt: -1 });
+    return NextResponse.json(products);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (err) {
     return NextResponse.json(
-      { message: "Failed to create product" },
+      { message: "Failed to fetch products" },
       { status: 500 }
     );
   }

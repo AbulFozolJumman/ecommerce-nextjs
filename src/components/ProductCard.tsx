@@ -6,17 +6,28 @@ import { addToCart } from "@/redux/slices/cartSlice";
 import { toast } from "react-hot-toast";
 
 type Product = {
-  id: string;
+  _id: string;
   title: string;
   price: number;
   image: string;
 };
 
-export default function ProductCard({ product }: { product: Product }) {
+interface Props {
+  product: Product;
+}
+
+export default function ProductCard({ product }: Props) {
   const dispatch = useDispatch();
 
   const handleAdd = () => {
-    dispatch(addToCart(product));
+    dispatch(
+      addToCart({
+        id: product._id,
+        title: product.title,
+        price: product.price,
+        image: product.image,
+      })
+    );
     toast.success("Added to cart");
   };
 
