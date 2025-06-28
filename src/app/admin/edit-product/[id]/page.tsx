@@ -5,18 +5,15 @@ import { connectDB } from "@/lib/mongoose";
 import Product from "@/models/product.model";
 import EditProductForm from "@/components/admin/EditProductForm";
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
+interface PageProps {
+  params: { [key: string]: string };
+}
 
-export default async function EditProductPage({ params }: Props) {
+export default async function EditProductPage({ params }: PageProps) {
   const session = await getServerSession(authOptions);
   if (!session?.user || session.user.role !== "admin") redirect("/");
 
   await connectDB();
-
   const product = await Product.findById(params.id).lean();
 
   if (!product) {
