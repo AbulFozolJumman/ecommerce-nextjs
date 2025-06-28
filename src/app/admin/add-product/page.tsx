@@ -1,6 +1,12 @@
 "use client";
 
 import AddProductForm from "@/components/admin/AddProductForm";
+// import dynamic from "next/dynamic";
+
+// const AddProductForm = dynamic(
+//   () => import("@/components/admin/AddProductForm"),
+//   { ssr: false }
+// );
 
 export default function AddProductPage() {
   return (

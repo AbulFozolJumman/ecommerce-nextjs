@@ -2,6 +2,13 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import AdminProductList from "@/components/admin/AdminProductList";
+// import dynamic from "next/dynamic";
+
+// const AdminProductList = dynamic(
+//   () => import("@/components/admin/AdminProductList"),
+//   { ssr: false }
+// );
 
 export default async function AdminDashboardPage() {
   const session = await getServerSession(authOptions);
@@ -12,6 +19,7 @@ export default async function AdminDashboardPage() {
   return (
     <main className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+      <AdminProductList />
 
       <div className="mb-4">
         <Link
