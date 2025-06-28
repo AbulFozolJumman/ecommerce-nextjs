@@ -3,8 +3,11 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function AddProductForm() {
+  const router = useRouter();
+
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -31,6 +34,7 @@ export default function AddProductForm() {
 
       toast.success("Product added");
       setForm({ title: "", description: "", price: "", image: "", stock: "" });
+      router.push("/admin/dashboard");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Error adding product");

@@ -1,14 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import AddProductForm from "@/components/admin/AddProductForm";
-// import dynamic from "next/dynamic";
-
-// Import client-side form dynamically
-// const AddProductForm = dynamic(
-//   () => import("@/components/admin/AddProductForm"),
-//   { ssr: false }
-// );
+import Link from "next/link";
 
 export default async function AdminDashboardPage() {
   const session = await getServerSession(authOptions);
@@ -19,8 +12,17 @@ export default async function AdminDashboardPage() {
   return (
     <main className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
-      <h2 className="text-xl font-semibold mb-4">Add New Product</h2>
-      <AddProductForm />
+
+      <div className="mb-4">
+        <Link
+          href="/admin/add-product"
+          className="inline-block bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition"
+        >
+          ➕ Add New Product
+        </Link>
+      </div>
+
+      {/* You can add stats or table of products/orders later */}
     </main>
   );
 }
