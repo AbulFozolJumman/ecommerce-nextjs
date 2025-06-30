@@ -35,7 +35,7 @@ export default function AdminProductList() {
     try {
       await axios.delete(`/api/products/${id}`);
       toast.success("Product deleted");
-      fetchProducts(); // Refresh list
+      fetchProducts();
     } catch {
       toast.error("Delete failed");
     }

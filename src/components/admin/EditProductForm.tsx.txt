@@ -5,14 +5,14 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
-type Product = {
+interface Product {
   _id: string;
   title: string;
   description: string;
   price: number;
   image: string;
   stock: number;
-};
+}
 
 export default function EditProductForm({ product }: { product: Product }) {
   const router = useRouter();
