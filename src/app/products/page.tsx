@@ -1,7 +1,5 @@
 "use client";
 
-// Test the Search then move to next
-
 import { useEffect, useState } from "react";
 import ProductCard from "@/components/ProductCard";
 

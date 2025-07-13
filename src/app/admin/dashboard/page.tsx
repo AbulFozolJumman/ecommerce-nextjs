@@ -3,12 +3,6 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import AdminProductList from "@/components/admin/AdminProductList";
-// import dynamic from "next/dynamic";
-
-// const AdminProductList = dynamic(
-//   () => import("@/components/admin/AdminProductList"),
-//   { ssr: false }
-// );
 
 export default async function AdminDashboardPage() {
   const session = await getServerSession(authOptions);
@@ -29,8 +23,6 @@ export default async function AdminDashboardPage() {
           ➕ Add New Product
         </Link>
       </div>
-
-      {/* You can add stats or table of products/orders later */}
     </main>
   );
 }

@@ -20,10 +20,14 @@ export async function GET(req: Request) {
       price: { $gte: min, $lte: max },
     };
 
-    const products = await Product.find(query)
-      .skip((page - 1) * limit)
-      .limit(limit)
-      .sort({ createdAt: -1 });
+    const all = searchParams.get("all") === "true";
+
+    const products = all
+      ? await Product.find(query).sort({ createdAt: -1 })
+      : await Product.find(query)
+          .skip((page - 1) * limit)
+          .limit(limit)
+          .sort({ createdAt: -1 });
 
     const total = await Product.countDocuments(query);
 
