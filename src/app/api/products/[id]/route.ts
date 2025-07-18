@@ -7,10 +7,10 @@ import Product from "@/models/product.model";
 
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   await connectDB();
-  const { id } = context.params;
+  const { id } = await context.params;
 
   try {
     const product = await Product.findById(id);
