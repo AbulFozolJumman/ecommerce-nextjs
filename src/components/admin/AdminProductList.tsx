@@ -29,6 +29,18 @@ export default function AdminProductList() {
     }
   };
 
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this product?")) return;
+
+    try {
+      await axios.delete(`/api/products/${id}`);
+      toast.success("Product deleted");
+      fetchProducts(); // Refresh list
+    } catch {
+      toast.error("Delete failed");
+    }
+  };
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -58,7 +70,10 @@ export default function AdminProductList() {
                 >
                   Edit
                 </Link>
-                <button className="px-3 py-1 bg-red-600 text-white rounded text-sm">
+                <button
+                  onClick={() => handleDelete(product._id)}
+                  className="px-3 py-1 bg-red-600 text-white rounded text-sm"
+                >
                   Delete
                 </button>
               </div>
