@@ -1,5 +1,3 @@
-// src/app/api/orders/route.ts
-
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -52,7 +50,6 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// ✅ GET: Fetch orders for logged-in user
 export async function GET() {
   try {
     const session = await getServerSession(authOptions);

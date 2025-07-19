@@ -1,0 +1,29 @@
+🔸 Error message:
+
+npm run build
+
+> ecommerce-nextjs@0.1.0 build
+> next build
+
+   ▲ Next.js 15.3.4
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+uncaughtException [Error: EPERM: operation not permitted, open 'C:\Projects\ecommerce-nextjs\.next\trace'] {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'open',
+  path: 'C:\\Projects\\ecommerce-nextjs\\.next\\trace'
+}
+
+➡️ Error cause: This happen when you try to build the while the app is running on local server
+✅ Solution: Stop the server and then build the app by "npm run build"
+
+🔸 Error message:
+app/admin/edit-product/[id]/page.ts:34:29
+Type error: Type 'Params' does not satisfy the constraint 'PageProps'.
+  Types of property 'params' are incompatible.
+    Type '{ id: string; }' is missing the following properties from type 'Promise<any>': then, catch, finally, [Symbol.toStringTag]
+
+➡️ Error cause: This happen when you try to get dynamic params[id] as a plain object
+✅ Solution: In next.js 15.3.4 dynamic params[id] comes as a Promise.
